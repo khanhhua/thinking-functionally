@@ -42,3 +42,11 @@ executable chap0106
     build-depends:    base ^>=4.14.3.0
     hs-source-dirs:   chap0106/app
     default-language: Haskell2010
+
+executable calc
+    main-is:          Main.hs
+    build-depends:
+        base ^>=4.14.3.0
+      , optparse-applicative >=0.14 && <0.17
+    hs-source-dirs:   calc/app
+    default-language: Haskell2010
