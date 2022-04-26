@@ -1,12 +1,8 @@
 module MonadicPipeline where
 
-import Control.Monad.Trans.Maybe
-import Control.Monad.Trans.Class (lift)
-
 main :: IO ()
-main = do
-    a:b:_ <- sequence [readInt, readInt]
-    showMaybe $ safeDivide a b
+main =
+    safeDivide <$> readInt <*> readInt >>= showMaybe
 
 
 showMaybe :: (Show a) => Maybe a -> IO ()
@@ -25,7 +21,7 @@ safeDivide :: Integral a => Maybe Integer -> Maybe Integer -> Maybe a
 safeDivide a b =
     case b of
         Just 0 -> Nothing
-        _ -> (\(x:y:_) -> divide x y) <$> sequence [a, b]
+        _ -> pure divide <*> a <*> b
 
 
 parseInteger :: String -> Maybe Integer
